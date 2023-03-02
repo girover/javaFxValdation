@@ -26,9 +26,17 @@
 
 
 ## Introduction
-**girover/javaFxValidation** is a package that allows you to validate all javaFX inputs.   
-With this package it will be very simple to validate inputs without writing much code.   
+girover/javaFxValidation is a powerful package that enables you to effortlessly validate all JavaFX inputs.   
+With this package, you can easily validate text fields, checkboxes, radio buttons, and other input types without the need to write complex validation code from scratch.   
 
+One of the benefits of using this package is that it helps to save a significant amount of time and effort.   
+You don't need to worry about writing long validation code, as the package provides pre-built validation rules that you can easily apply to your input fields.   
+
+Additionally, `girover/javaFxValidation` is highly customizable, allowing you to tailor your validation rules to meet the specific needs of your project.   
+You can define your own validation rules, such as specifying the minimum and maximum length of a text field, or requiring that a checkbox be checked before a form can be submitted.   
+
+In summary, girover/javaFxValidation is an excellent package that simplifies the process of validating JavaFX inputs.   
+Whether you're building a small application or a complex project, this package can help you save time and reduce the risk of errors in your input validation code.
 
 ## prerequisites
 
@@ -39,9 +47,11 @@ With this package it will be very simple to validate inputs without writing much
 # Usage
 ---
 ## Validator Class
-To start validating user inputs, you must create an instance of **javaFxValidation.Validator** class.   
-The constructor of the `Validator` takes an object as a parameter, which is the class that you want to validate their fields against some rules.   
-Supposing you have a controller containing some `javaFx` components like `TextField` and you want to validate its value, then you must pass this controller to the constructor of `Validator`, afterthat you should call the method `validate()` *OR* `validate(String...fields)`.   
+
+Suppose you have a controller that includes some javaFX components such as TextFields, and you need to validate the input values entered by the user.   
+To accomplish this, you can pass the controller to the constructor of a `Validator` object.   
+Once you have done this, you can call the `validate()` method, or the `validate(field1, field2, ...)` method if you only need to validate certain fields.   
+This will ensure that the input values are checked against any validation rules you have defined by `@Rules` annotation, and will provide appropriate feedback to the user if any errors are found.
 
 ```java
 import javafx.scene.control.TextField;
@@ -66,13 +76,19 @@ public class MainController {
 	}
 }
 ```
-The above code will do nothing but creating instance of `Validator`, because we have not assigned any rules to the field that we want to validate.   
+The code shown above creates an instance of the Validator class.   
+However, since no rules have been assigned to the field that needs validation, the code will not perform any validation checks.   
+It is essential to define the validation rules before calling the validate() method to ensure that the input value is checked against the rules defined for the specific field.   
+By assigning appropriate validation rules to each field, you can ensure that your application only accepts valid input and provides appropriate feedback to the user if any errors are found.   
 
-To tell `validator` to start validating fields in the controller, there are two things you must to do.   
-***First*** you must add `@Rules` Annotation to the field you want to validate.   
-This annotation takes two values. The first is `field` which is the field name, and the second is `rules` which is a String containing all rules you want validate this field against. [Go to writing rules section](#writing-rules).   
-***Second*** you must call `validator.validate()` or `validator.validate(String...fieldNames)`.   
-The difference between these two methods is that `validate()` will validate all fields annotated with `@Rules` in the controller, While `validate(String...fields)` will validate only the fields you pass to this method as Strings *(those fields must be annotated by @rule annotation)*   
+In order to initiate field validation using `validator`, there are two important steps to follow.   
+**The first step** is to add the `@Rules` annotation to the fields that you want to validate. This annotation requires two values: the first is `field`, which is the name of the field, and the second is `rules`, which is a string containing all the rules that you want to apply to this field.   
+ For more information on how to write rules, refer to the [Writing Rules section](#writing-rules).
+
+The second step is to call either the `validator.validate()` method or the `validator.validate(field1, field2, field3, ...)` method.   
+The former method will validate all fields that have been annotated with `@Rules` in the controller, whereas the latter method will only validate the fields that you specify as arguments (i.e. field1, field2, field3, etc.), provided that they have been annotated with the `@Rules` annotation.   
+
+By following these steps, you can ensure that your JavaFX inputs are thoroughly validated against the rules that you have defined, providing your users with accurate and helpful feedback when necessary.   
 
 *Look at this example:*
 
@@ -99,13 +115,20 @@ public class MainController {
 ```
 
 > **Note** 
-> The field name in the annotation does not have to be the same as the variable name.
+> It's important to note that the field name specified in the `@Rules` annotation doesn't have to be the same as the variable name.    
+This means that you can apply validation rules to any field in your JavaFX controller, regardless of how it is named. 
 
-In this example we added annotation `Rules` before the field name, and we give the field a name `field= "user name"` and we pass wanted rules `rules="required"`. [All available rules](#all-available-rules).
+In the example shown, we have added the `@Rules` annotation before the field name and specified a name for the field using the `field` attribute (in this case, "user name").   
+We have also specified the validation rules to apply to the field using the `rules` attribute, with the value *required* indicating that the field is mandatory. [All available rules](#all-available-rules).
 
 
-After the validator has validated wanted fields, you can check if fields pass the rules or not by calling the method `pass()` or `pass(boolean)`.   
+After the `validator` has validated the desired fields, you can check whether they have passed the validation rules or not by calling the `pass()` method or the `pass(boolean)` method.   
 
+The `pass()` method returns a boolean value indicating whether all of the validated fields have passed their respective rules or not.   
+The `pass(boolean)` method takes a boolean argument, which specifies whether to stop validating on the first failure or not.   
+If the argument is `true`, the validation will stop on the first failure, otherwise, it will continue validating all the fields annotated with `@Rules`.   
+
+By using these methods, you can easily determine whether your JavaFX inputs are valid or not, and provide appropriate feedback to your users as needed.
 
 ```java
 	if(validator.pass())
@@ -114,9 +137,8 @@ After the validator has validated wanted fields, you can check if fields pass th
 		System.out.println("Failed to pass all rules");
 ```
 
-The method `pass` will also generate all **error messages** for all rules that the field does not pass.   
-But when a field fails to pass a specific rule, why to check all rules that come after this rule.   
-In this case you can pass `true` as an argument to the method `pass(boolean)` to tell the validator to stop checking rules when the first failure occurs.   
+The `pass()` and `pass(boolean)` methods generate error messages for all rules that the field does not pass.   
+This is useful for providing users with specific feedback on what data they entered incorrectly and what needs to be corrected.  
 
 **Example**
 
@@ -133,38 +155,35 @@ In this case you can pass `true` as an argument to the method `pass(boolean)` to
 
 ## Writing rules
 
-This package uses two types of rules `explicit` and `parameterized`.   
-The difference between these two types is that **parameterized** rules accept parameters,   
-while `explicit` rules do not.   
+The `javaFxValidation` package uses two types of rules: `explicit` and `parameterized`.   
+Explicit rules do not accept parameters, while parameterized rules do.   
+As mentioned in the [Validator class section](#validator-class), rules are passed via the `@Rules` annotation as a string.   
+However, this string has a specific format: rules are separated from each other using the `|` character.
 
-As mentioned in the section [Validator Class](#validator-class), **rules** are passed by `@Rules` annotation   
-`@Rules(field = "email", rules = ""required")` as a **String**.   
-But this string has a special form. Rules are separated from each other by using ` | ` character.   
-For instance:
+For example, to validate that an email field is required and must be a valid email address, you can use the following code:
 
 ```ruby 
 
-	@FXML
+    @FXML
     @Rules(field = "email", rules = "required|email")
     TextField email;
 
 ```
 
-As you can see the field **email** has two **rules** to pass. These rules are `required` and `email`.   
-**required** means that the value of this field can not be null or empty. **email** means that the value of this field must be a valid email address.   
-There is no limitation for how many rules you write in one string.
-***But what if a rule takes parameters. How to pass parameters to the rule?***
-It is very simple to pass parameters to the rule by using ` : ` character between rule name and parameters.
-For example: `@Rules(field = "name", rules = "required|min:2|max:20")`.   
-This means name must be provided because of **required**, the length of the name can not be shorter than 2 letters   
-and the length of name can not be longer than 20.   
-There are also some rules accept more than one parameter, so how to pass these parameters?   
-It is also very simple by using ` , ` character between parameters.   
-For example: `@Rules(field = "user role", rules = "required|in:admin,student,teacher")`.   
-This means that **user role** must be **admin**, **student** or **teacher**.
+In the example above, the field `email` has two rules to pass: `required` and `email`.   
+`required` means that the value of this field cannot be null or empty, while email means that the value of this field must be a valid email address.   
+You can specify as many rules as you need for a field in a single string, separated by the `|` character.   
+But what if a rule requires parameters? It's straightforward to pass parameters to a rule by using the `:` character between the rule name and the parameters.   
+For example, `@Rules(field = "name", rules = "required|min:2|max:20")` means that the name must be provided because of the `required` rule, and the length of the name must be between 2 and 20 characters due to the `min` and `max` rules, respectively.   
+
+Some rules accept multiple parameters, such as the `in` rule, which checks if a value is in a list of allowed values.   
+To specify multiple parameters for a rule, use the `,` character between parameters.   
+For example, `@Rules(field = "user role", rules = "required|in:admin,student,teacher")` means that the user role must be one of the allowed values: *admin, student, or teacher*.
 
 > **Note**
-> All fields are optional by default, which means no rules will be applied to them, if their values are null or empty string. But when using `required` rule, so the value can not be null or empty and all other rules also will be applied. Look at this example.
+> By default, all fields are considered optional, which means that no rules will be applied to them if their values are null or empty strings. However, if you use the required rule, then the value cannot be null or an empty string, and all other rules will also be applied. 
+
+Take a look at this example:
 
 ```ruby
 import javaFxValidation.Validator;
@@ -189,15 +208,11 @@ public class MainController {
 	}
 }
 ```
-The value of field `name` is an empty string and the rule `required` is not given to it, so the rule `length:10` will not be applied to this field. But if the value of `name` is not empty, then the rule `length:10` will be applied and ***error message*** will be generated if this value is not exactly 10 characters.
+
+The value of the `name` field is an empty string and the `required` rule is not specified, then the `length:10` rule will not be applied to the name field.   
+But if the value of name is not empty, then the `length:10` rule will be applied and an error message will be generated if the value is not exactly 10 characters long.
 
 ## All available rules
-
-There are two types of rules `explicit` and `parameterized`   
-`explicit` rules do not take any parameter, 
-.
-.
-.
 
 
 **Parameterized Rules**
@@ -248,102 +263,193 @@ There are two types of rules `explicit` and `parameterized`
 
 
 #### Required
-Required means that the field cann't be null or blank String.  [:arrow_up:](#all-available-rules)
+This rule checks that the field is not null or an empty string.  [:arrow_up:](#all-available-rules)
 
 ```java
-	String name = "";
+	@FXML
+	@Rules(field = "name", rules = "required")
+	private TextField nameField;
 		
-	validator.addFieldRules("name", name, "required");
 ```
 
 #### alphaNumeric
-The field under validation must only contain letters and numbers.  [:arrow_up:](#all-available-rules)
+This rule checks that the field only contains alphabetic and numeric characters.  [:arrow_up:](#all-available-rules)
 > Note
 > This cann't accept spaces
 
 ```java
-	String group = "group999";
-		
-	validator.addFieldRules("group name", group, "alphaNumeric");
+	@FXML
+	@Rules(field = "user name", rules = "alphaNumeric")
+	private TextField usernameField;
 ```
 
 #### alphaDash
-The field under validation must only contain letters, numbers, dashes and underscores.  [:arrow_up:](#all-available-rules)
+This rule checks that the field only contains alphabetic, numeric, hyphen, and underscore characters.  [:arrow_up:](#all-available-rules)
 > Note
 > This cann't accept spaces
 
 ```java
-	String CPR = "123456-1233";
-		
-	validator.addFieldRules("CPR", CPR, "alphaDash");
+	@FXML
+	@Rules(field = "username", rules = "alphaDash")
+	private TextField usernameField;
 ```
 
 #### numeric
-The field under validation must be a number.  [:arrow_up:](#all-available-rules)
+This rule checks that the field only contains numeric characters.  [:arrow_up:](#all-available-rules)
 
 ```java
-	String age = "40";
-		
-	validator.addFieldRules("Age", age, "numeric");
+	@FXML
+	@Rules(field = "age", rules = "numeric")
+	private TextField ageField;
 ```
 
 #### email
-The field under validation must be a valid email address.  [:arrow_up:](#all-available-rules)
+This rule checks that the field contains a valid email address.  [:arrow_up:](#all-available-rules)
 
 ```java
-	String email = "example@domain.com";
-		
-	validator.addFieldRules("Email", email, "email");
+	@FXML
+	@Rules(field = "email", rules = "email")
+	private TextField emailField;
 ```
 
 #### date
-The field under validation must be a valid date.  [:arrow_up:](#all-available-rules)
+ This rule checks that the field contains a valid date in the specified format.  [:arrow_up:](#all-available-rules)
 
 ```java
-	String birthDate = "01/01/1990";
-		
-	validator.addFieldRules("birthDate", birthDate, "date");
+	@FXML
+	@Rules(field = "dob", rules = "date")
+	private TextField dobField;
 ```
 
 #### boolean
-The field must be true or false.  [:arrow_up:](#all-available-rules)
+This rule checks that the field contains a boolean value *(true or false)*.  [:arrow_up:](#all-available-rules)
 
 ```java
-	String booleanField = "1";
-		
-	validator.addFieldRules("booleanField", booleanField, "boolean");
+	@FXML
+	@Rules(field = "isRegistered", rules = "boolean")
+	private CheckBox isRegisteredField;
 ```
 ### Parameterized Rules
 
 #### digits:*value*
-The integer under validation must have an exact length of value.  [:arrow_up:](#all-available-rules)
+The field under validation must be a numeric value containing only digits and must match the given length.  [:arrow_up:](#all-available-rules)
 
 ```java
-	String CPR = "1";
-		
-	validator.addFieldRules("CPR", CPR, "digits:10");
+	@Rules(field = "age", rules = "digits:2")
+	TextField age;
 ```
 #### between:*min,max*
-The integer under validation must have an exact length of value. The field under validation must have a size between the given min and max. Strings and numerics are evaluated in the same fashion as the size rule.  [:arrow_up:](#all-available-rules)
+The field under validation must have a size between the given min and max. Strings and numerics are evaluated in the same fashion as the size rule.  [:arrow_up:](#all-available-rules)
 
 ```java
-	String age = "25";
-	String password = "secret";
-		
-	// age value must be between 18 and 50.
-	validator.addFieldRules("Age", age, "between:18,50");
-	// the length of password must be between 5 and 15 characters.
-	validator.addFieldRules("Password", password, "between:5,15");
+	@Rules(field = "score", rules = "between:0,100")
+	TextField score;
 ```
 #### in:*foo,bar,...*
 The field under validation must be included in the given list of values.  [:arrow_up:](#all-available-rules)
 
 ```java
-	String userRole = "admin";
-		
-	validator.addFieldRules("user role", userRole, "in:admin,editor,anotherRole");
+	@Rules(field = "user role", rules = "in:admin,editor,contributor")
+	TextField role;
+```
+#### noIn:*foo,bar,...*
+The field under validation must not be included in the given list of values.  [:arrow_up:](#all-available-rules)
+
+```java
+	@Rules(field = "role", rules = "notIn:admin,editor")
+	TextField role;
+```
+#### max:*value*
+The field under validation must be less than or equal to a maximum value.  [:arrow_up:](#all-available-rules)
+
+```java
+	@Rules(field = "age", rules = "max:60")
+	TextField age;
+```
+#### min:*value*
+The field under validation must be greater than or equal to a minimum value.  [:arrow_up:](#all-available-rules)
+
+```java
+	@Rules(field = "age", rules = "min:18")
+	TextField age;
+```
+#### digits_max:*value*
+The field under validation must be a numeric value containing only digits and must not exceed the given value.  [:arrow_up:](#all-available-rules)
+
+```java
+	@Rules(field = "phone", rules = "digits_max:10")
+	TextField phone;
+```
+#### digits_min:*value*
+The field under validation must be a numeric value containing only digits and must not be less than the given value.  [:arrow_up:](#all-available-rules)
+
+```java
+	@Rules(field = "phone", rules = "digits_min:6")
+	TextField phone;
+```
+#### length:*value*
+The field under validation must have a length equal to the given value.  [:arrow_up:](#all-available-rules)
+
+```java
+	@Rules(field = "username", rules = "length:8")
+	TextField username;
+```
+#### length_max:*value*
+The field under validation must not exceed the given length.  [:arrow_up:](#all-available-rules)
+
+```java
+	@Rules(field = "password", rules = "length_max:20")
+	TextField password;
+```
+#### length_min:*value*
+The field under validation must be at least the given length.  [:arrow_up:](#all-available-rules)
+
+```java
+	@Rules(field = "password", rules = "length_max:20")
+	TextField password;
+```
+#### format:*date_format*
+The rule is used to ensure that a given field matches a specific date format.   
+This rule takes one parameter: the desired date format. The format parameter should be a valid date format string that is supported by the `SimpleDateFormat` class in Java.
+
+Here is an example of using the format rule to validate a date field named dateOfBirth that must be in the format `dd-mm-yyyy`:
+
+```java
+	@FXML
+	@Rules(field = "dateOfBirth", rules = "required|format:dd-mm-yyyy")
+	TextField dateOfBirth;
+```
+In this example, the required rule ensures that the `dateOfBirth` field is not null or empty. The format:	`dd-mm-yyyy` rule ensures that the `dateOfBirth` field matches the specified format.
+
+#### same:*field_name*
+This rule validates that the value of the field under validation is the same as the value of another field.   
+It is useful when you need to confirm that two fields have the same value, such as *password* and *password confirmation*.
+
+```java
+
+	@FXML
+	@Rules(field = "password", rules = "required|min:8|max:25")
+	TextField password;
+
+	@FXML
+	@Rules(field = "confirm password", rules = "same:password")
+	TextField confirmPassword;
 ```
 
+#### regex:*pattern*
+The regex rule is used to validate a field against a regular expression pattern.   
+It takes one parameter which is the regular expression pattern that the field's value should match.
+
+Here is an example of how to use the regex rule with a regular expression pattern to validate a field called phone:
+
+```java
+	@FXML
+	@Rules(field = "phone", rules = "regex:^\\(\\d{3}\\)\\s\\d{3}-\\d{4}$")
+	TextField phone;
+```
+In this example, the phone field will be validated against the regular expression pattern ^\(\d{3}\)\s\d{3}-\d{4}$, which matches US phone numbers in the format (XXX) XXX-XXXX.   
+
+If the value of the phone field does not match the regular expression pattern, an error message will be generated.
 
 ## Displaying error messages
 

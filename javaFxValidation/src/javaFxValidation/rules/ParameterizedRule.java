@@ -54,7 +54,7 @@ public class ParameterizedRule extends Rule {
 	protected Matcher parseMatcher(String rule) throws ValidationException {
 		switch (rule) {
 		case "digits": {
-			return matchLength("==");
+			return digits();
 		}
 		case "between": {
 			return matchBetween();
@@ -110,6 +110,15 @@ public class ParameterizedRule extends Rule {
 		default:
 			throw new ValidationException("Could not generate rule: " + rule);
 		}
+	}
+	
+	private Matcher digits() throws ValidationException {
+		return value -> {
+			if(!Str.isNumeric(value))
+				return false;
+			
+			return value.length() == Integer.parseInt(getParameters().get(0)) ? true : false;
+		};
 	}
 	
 	private Matcher matchBetween() throws ValidationException {
