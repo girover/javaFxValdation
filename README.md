@@ -215,52 +215,27 @@ But if the value of name is not empty, then the `length:10` rule will be applied
 
 ## All available rules
 
-
-**Parameterized Rules**
-| #   | Rule Name    		   | Description                                           |
-| --- | -------------------------- | ----------------------------------------------------- |
-|1    | **`digits`**| The `field` must be `parameter` digits. |
-|2    | **`between`** | The `field` must be between `param-1` and `param-2`. |
-|3    | **`in`**  | The `field` must be in `parameters`. |
-|4    | **`notIn`**| The `fiend` cannot be in `parameters`.  |
-|6	  |	**`max`**    |  The `field` must not be greater than `param`.  |
-|7	  |	**`min`**  | The `field` must be at least `param`. |
-|8	  |	**`digits_max`**     | The `field` must not have more than `param` digits.  |
-|9	  |	**`digits_min`**     | The `field` must have at least `param` digits. |
-|10   |	**`length`**   | The length of `field` must be `param`. |
-|11	  | **`length_max`**   | The length of `field` must not be longer than `param`. |
-|12	  | **`length_min`**  | The length of `field` must not be shorter than `param`. |
-|13	  | **`gt`**    | The `field` must be greater than `param`. |
-|14	  |	**`gte`**   | The `field` must be greater than or equal to `param`. |
-|15	  | **`lt`**    | The `field` must be less than `param`. |
-|16	  | **`lte`**  | The `field` must be less than or equal to `param`. |
-|17	  | **`mime`** | The `field` accepts only extensions: `parameters`. |
-|18	  | **`format`** | The format of `field` must be `param`. |
-|19	  | **`regex`** | The `field` not matches the Regular Expression `param`. |
-|20	  | **`same`** | The `field-1` doesn't match `field-2`. |
-
-**All Rules**
 | #   | Exlpicit Rules (Do not take Parameters)	   | Parameterized Rules (Accepts parameters)   |
 | --- | -------------------------- | ----------------------------------------------------- |
-|1    |[**`required`**](#required) | **`digits`**|
-|2    | **`alphaNumeric`** | **`between`**  |
-|3    | **`alphaDash`** |**`in`**  | 
-|4    | **`numeric`** |**`notIn`**  |
-|6	  | **`email`** |**`max`**    |
-|7	  | **`date`** |**`min`**    |
-|8	  | **`boolean`**  |**`digits_max`**     |
-|9	  ||**`digits_min`**    |
-|10   ||**`length`**   |
-|11	  ||**`length_max`** |
-|12	  ||**`length_min`**|
-|13	  ||**`gt`**    |
-|14	  ||**`gte`**   |
-|15	  ||**`lt`**    |
-|16	  ||**`lte`**  |
-|17	  ||**`mime`** |
-|18	  ||**`format`** |
-|19	  ||**`regex`** |
-|20	  ||**`same`**  |
+|1    |[**`required`**](#required)                 |**`digits`**)|
+|2    |[**`alphaNumeric`**](#alphanumeric)         |**`between`**  |
+|3    |[**`alphaDash`**](#alphadash)               |**`in`**  | 
+|4    |[**`numeric`**](#numeric)                   |**`notIn`**  |
+|6	  |[**`email`**](#email)                       |**`max`**    |
+|7	  |[**`date`**](#date)                         |**`min`**    |
+|8	  |[**`boolean`**](#boolean)                   |**`digits_max`**     |
+|9	  |                                            |**`digits_min`**]    |
+|10   |											   |**`length`**   |
+|11	  |											   |**`length_max`** |
+|12	  |											   |**`length_min`**|
+|13	  |											   |**`gt`**    |
+|14	  |											   |**`gte`**   |
+|15	  |											   |**`lt`**    |
+|16	  |											   |**`lte`**  |
+|17	  |											   |**`mime`** |
+|18	  |											   |**`format`** |
+|19	  |											   |**`regex`** |
+|20	  |											   |**`same`**  |
 
 
 #### Required
