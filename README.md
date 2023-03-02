@@ -504,10 +504,11 @@ The email address must be a valid email address.
 
 ## Customizing error messages
 
-The messages we got from the example in the previous section are default messages.   
-But you can override messages for any rule on any field.   
-To do that you must add the annotation `@Msg` before the field, and give it the rule name and the message. 
-Assuming you want to change the error message for `email` rule.
+The example in the previous section shows default error messages that are generated when a rule is violated.   
+However, you can customize the error messages for any rule on any field by using the `@Msg` annotation.   
+This annotation allows you to specify the name of the rule and the message you want to display in case of a violation.   
+
+For example, if you want to change the error message for the field `emailAddress`:
 
 ```java 
 
@@ -542,16 +543,6 @@ We need your email address. Please provide it.
 Please type a valid E-mail address.
 ```
 
-
-## Class Diagram
-
-![Screenshot_20230226_113949](https://user-images.githubusercontent.com/53403538/221405583-d9e4a9a4-065f-49b2-bec2-67010c1b83b7.png)
-
-## Validation exception
-.
-.
-.
-.
 ## Validating Entities
 Suppose you have an *entity* class called `User` that represents a user in your application.   
 The `User` class has several fields such as `name`, `email`, `password`, and `age`.   
@@ -600,6 +591,18 @@ In this example, if the name field is empty or has less than 2 characters or mor
 
 You can then display these error messages to the user to inform them of the validation errors.   
 If there are no validation errors, you can proceed with saving the user to the database or performing other operations as needed.
+
+
+## Class Diagram
+
+![Screenshot_20230226_113949](https://user-images.githubusercontent.com/53403538/221405583-d9e4a9a4-065f-49b2-bec2-67010c1b83b7.png)
+
+## Validation exception
+.
+.
+.
+.
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
