@@ -27,7 +27,7 @@
 
 
 ## Introduction
-girover/javaFxValidation is a powerful package that enables you to effortlessly validate all JavaFX inputs.   
+`girover/javaFxValidation` is a powerful package that enables you to effortlessly validate all JavaFX inputs.   
 With this package, you can easily validate text fields, checkboxes, radio buttons, and other input types without the need to write complex validation code from scratch.   
 
 One of the benefits of using this package is that it helps to save a significant amount of time and effort.   
@@ -36,7 +36,7 @@ You don't need to worry about writing long validation code, as the package provi
 Additionally, `girover/javaFxValidation` is highly customizable, allowing you to tailor your validation rules to meet the specific needs of your project.   
 You can define your own validation rules, such as specifying the minimum and maximum length of a text field, or requiring that a checkbox be checked before a form can be submitted.   
 
-In summary, girover/javaFxValidation is an excellent package that simplifies the process of validating JavaFX inputs.   
+In summary, `girover/javaFxValidation` is an excellent package that simplifies the process of validating JavaFX inputs.   
 Whether you're building a small application or a complex project, this package can help you save time and reduce the risk of errors in your input validation code.
 
 ## prerequisites
@@ -79,14 +79,14 @@ public class MainController {
 ```
 The code shown above creates an instance of the Validator class.   
 However, since no rules have been assigned to the field that needs validation, the code will not perform any validation checks.   
-It is essential to define the validation rules before calling the validate() method to ensure that the input value is checked against the rules defined for the specific field.   
+It is essential to define the validation rules before calling the `validate()` method to ensure that the input value is checked against the rules defined for the specific field.   
 By assigning appropriate validation rules to each field, you can ensure that your application only accepts valid input and provides appropriate feedback to the user if any errors are found.   
 
 In order to initiate field validation using `validator`, there are two important steps to follow.   
 **The first step** is to add the `@Rules` annotation to the fields that you want to validate. This annotation requires two values: the first is `field`, which is the name of the field, and the second is `rules`, which is a string containing all the rules that you want to apply to this field.   
  For more information on how to write rules, refer to the [Writing Rules section](#writing-rules).
 
-The second step is to call either the `validator.validate()` method or the `validator.validate(field1, field2, field3, ...)` method.   
+**The second step** is to call either the `validator.validate()` method or the `validator.validate(field1, field2, field3, ...)` method.   
 The former method will validate all fields that have been annotated with `@Rules` in the controller, whereas the latter method will only validate the fields that you specify as arguments (i.e. field1, field2, field3, etc.), provided that they have been annotated with the `@Rules` annotation.   
 
 By following these steps, you can ensure that your JavaFX inputs are thoroughly validated against the rules that you have defined, providing your users with accurate and helpful feedback when necessary.   
@@ -120,7 +120,7 @@ public class MainController {
 This means that you can apply validation rules to any field in your JavaFX controller, regardless of how it is named. 
 
 In the example shown, we have added the `@Rules` annotation before the field name and specified a name for the field using the `field` attribute (in this case, "user name").   
-We have also specified the validation rules to apply to the field using the `rules` attribute, with the value *required* indicating that the field is mandatory. [All available rules](#all-available-rules).
+We have also specified the validation rules to apply to the field using the `rules` attribute, with the value *"required"* indicating that the field is mandatory. [All available rules](#all-available-rules).
 
 
 After the `validator` has validated the desired fields, you can check whether they have passed the validation rules or not by calling the `pass()` method or the `pass(boolean)` method.   
@@ -250,7 +250,7 @@ This rule checks that the field is not null or an empty string.  [:arrow_up:](#a
 
 #### alphaNumeric
 This rule checks that the field only contains alphabetic and numeric characters.  [:arrow_up:](#all-available-rules)
-> Note
+> **Note**
 > This cann't accept spaces
 
 ```java
@@ -261,7 +261,7 @@ This rule checks that the field only contains alphabetic and numeric characters.
 
 #### alphaDash
 This rule checks that the field only contains alphabetic, numeric, hyphen, and underscore characters.  [:arrow_up:](#all-available-rules)
-> Note
+> **Note**
 > This cann't accept spaces
 
 ```java
@@ -289,7 +289,7 @@ This rule checks that the field contains a valid email address.  [:arrow_up:](#a
 ```
 
 #### date
- This rule checks that the field contains a valid date in the specified format.  [:arrow_up:](#all-available-rules)
+ This rule checks that the field contains a valid date in the `dd/mm/yyyy` format.  [:arrow_up:](#all-available-rules)
 
 ```java
 	@FXML
@@ -315,7 +315,7 @@ The field under validation must be a numeric value containing only digits and mu
 	TextField age;
 ```
 #### between:*min,max*
-The field under validation must have a size between the given min and max. Strings and numerics are evaluated in the same fashion as the size rule.  [:arrow_up:](#all-available-rules)
+The field under validation must have a size between the given `min` and `max`. Strings and numerics are evaluated in the same fashion as the size rule.  [:arrow_up:](#all-available-rules)
 
 ```java
 	@Rules(field = "score", rules = "between:0,100")
@@ -350,21 +350,21 @@ The field under validation must be greater than or equal to a minimum value.  [:
 	TextField age;
 ```
 #### digits_max:*value*
-The field under validation must be a numeric value containing only digits and must not exceed the given value.  [:arrow_up:](#all-available-rules)
+The field under validation must be a numeric value containing only digits and must not exceed the given length.  [:arrow_up:](#all-available-rules)
 
 ```java
 	@Rules(field = "phone", rules = "digits_max:10")
 	TextField phone;
 ```
 #### digits_min:*value*
-The field under validation must be a numeric value containing only digits and must not be less than the given value.  [:arrow_up:](#all-available-rules)
+The field under validation must be a numeric value containing only digits and must not be less than the given length.  [:arrow_up:](#all-available-rules)
 
 ```java
 	@Rules(field = "phone", rules = "digits_min:6")
 	TextField phone;
 ```
 #### length:*value*
-The field under validation must have a length equal to the given value.  [:arrow_up:](#all-available-rules)
+The field under validation must have a length equal to the given length.  [:arrow_up:](#all-available-rules)
 
 ```java
 	@Rules(field = "username", rules = "length:8")
@@ -397,7 +397,7 @@ Here is an example of using the format rule to validate a date field named dateO
 ```
 In this example, the required rule ensures that the `dateOfBirth` field is not null or empty. The format:	`dd-mm-yyyy` rule ensures that the `dateOfBirth` field matches the specified format.
 
-#### same:*field_name*
+#### same:*another_field_name*
 This rule validates that the value of the field under validation is the same as the value of another field.   
 It is useful when you need to confirm that two fields have the same value, such as *password* and *password confirmation*.
 
@@ -433,7 +433,7 @@ After calling the `pass()` method, you can retrieve all ***error messages*** by 
 This method returns an **ArrayList<String>** containing all error messages generated during the validation process.   
 You can then use these error messages to inform the user of any validation failures and prompt them to correct their input.  
 
-Let us take a look at an example.
+*Let us take a look at an example.*
 
 ```ruby
 import javaFxValidation.Validator;
@@ -452,7 +452,6 @@ public class MainController {
 	private String email     = "example@domain@com";
 
 	public void onClickBtnSave(ActionEvent event) {
-		
 		
 		try {
 			Validator validator = new Validator(this);
@@ -483,7 +482,7 @@ The example in the previous section shows default error messages that are genera
 However, you can customize the error messages for any rule on any field by using the `@Msg` annotation.   
 This annotation allows you to specify the name of the rule and the message you want to display in case of a violation.   
 
-For example, if you want to change the error message for the field `emailAddress`:
+For example, if you want to change the error messages for the field `emailAddress`:
 
 ```java 
 
@@ -570,7 +569,7 @@ If there are no validation errors, you can proceed with saving the user to the d
 
 ## Class Diagram
 
-![Screenshot_20230226_113949](https://user-images.githubusercontent.com/53403538/221405583-d9e4a9a4-065f-49b2-bec2-67010c1b83b7.png)
+![Screenshot 2023-03-03 094119](https://user-images.githubusercontent.com/53403538/222673173-b5014888-4f1f-45d0-b0f5-455a1725fb5d.png)
 
 ## Validation exception
 .
