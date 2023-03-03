@@ -201,7 +201,7 @@ public class Validator {
 					
 					String fieldValue;
 					if(isPrimitive(field.get(controllerUnderValidation)))
-						fieldValue = (String)field.get(controllerUnderValidation);
+						fieldValue = field.get(controllerUnderValidation).toString();
 					else {
 						Control control = (Control)field.get(controllerUnderValidation);
 						fieldValue = getValueOfJavaFxControl(control);

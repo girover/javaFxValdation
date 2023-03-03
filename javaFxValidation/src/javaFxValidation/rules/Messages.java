@@ -49,6 +49,7 @@ public class Messages {
 			parameterizedRulesMessages.put("lt", "The %s must be less than %s.");
 			parameterizedRulesMessages.put("gte", "The %s must be greater than or equal to %s.");
 			parameterizedRulesMessages.put("lte", "The %s must be less than or equal to %s.");
+			parameterizedRulesMessages.put("equal", "The %s must be %s.");
 			parameterizedRulesMessages.put("regex", "The %s not matches the Regular Expression %s.");
 			parameterizedRulesMessages.put("mime", "The %s accepts only extentions: %s."); // email same:confirmation
 			parameterizedRulesMessages.put("same", "The %s doesn't match %s."); // email same:confirmation

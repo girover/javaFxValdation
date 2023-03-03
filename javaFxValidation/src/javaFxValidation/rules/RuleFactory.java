@@ -21,7 +21,8 @@ public class RuleFactory {
 			"alphaDash",
 			"numeric",
 			"email",
-			"date"
+			"date",
+			"boolean"
 	));
 	
 	private static ArrayList<String> validParameterizedRules = new ArrayList<>(Arrays.asList(
@@ -41,6 +42,7 @@ public class RuleFactory {
 			"gte",
 			"lt",
 			"lte",
+			"equal",
 			"mime",
 			"format",
 			"regex",
@@ -61,6 +63,7 @@ public class RuleFactory {
 			"gte",
 			"lt",
 			"lte",
+			"equal",
 			"format",
 			"regex",
 			"same"

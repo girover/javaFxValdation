@@ -98,6 +98,12 @@ public class ParameterizedRule extends Rule {
 		case "lte": {
 			return matchCompareValue("<=");
 		}
+		case "equal": {
+			return value -> {
+				String s = getParameters().get(0);
+				return value.equals(s);
+			};
+		}
 		case "format": {
 			return value -> Str.isDate(value, getParameters().get(0));
 		}

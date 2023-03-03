@@ -50,6 +50,9 @@ public class ExplicitRule extends Rule {
 		case "date": {
 			return string -> Str.isDate(string);
 		}
+		case "boolean": {
+			return string -> Str.isBoolean(string);
+		}
 		default:
 			throw new ValidationException("Could not generate rule: " + rule);
 		}
