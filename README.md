@@ -232,10 +232,9 @@ But if the value of name is not empty, then the `length:10` rule will be applied
 |14	  |											   |**`gte`**   |
 |15	  |											   |**`lt`**    |
 |16	  |											   |**`lte`**  |
-|17	  |											   |**`mime`** |
-|18	  |											   |**`format`** |
-|19	  |											   |**`regex`** |
-|20	  |											   |**`same`**  |
+|17	  |											   |**`format`** |
+|18	  |											   |**`regex`** |
+|19	  |											   |**`same`**  |
 
 
 #### Required
@@ -383,6 +382,34 @@ The field under validation must be at least the given length.  [:arrow_up:](#all
 ```java
 	@Rules(field = "password", rules = "length_max:20")
 	TextField password;
+```
+#### gt:*value*
+This rule validates that the value of the field is greater than a given value.  [:arrow_up:](#all-available-rules)
+
+```java
+	@Rules(field = "age", rules = "required|gt:18")
+	TextField age;
+```
+#### gte:*value*
+This rule validates that the value of the field is greater than or equal to a given value.  [:arrow_up:](#all-available-rules)
+
+```java
+	@Rules(field = "age", rules = "required|gte:18")
+	TextField age;
+```
+#### lt:*value*
+This rule validates that the value of the field is less than a given value.  [:arrow_up:](#all-available-rules)
+
+```java
+	@Rules(field = "age", rules = "required|lt:18")
+	TextField age;
+```
+#### lte:*value*
+This rule validates that the value of the field is less than or equal to a given value.  [:arrow_up:](#all-available-rules)
+
+```java
+	@Rules(field = "age", rules = "required|lte:18")
+	TextField age;
 ```
 #### format:*date_format*
 The rule is used to ensure that a given field matches a specific date format.   
