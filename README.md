@@ -231,10 +231,11 @@ But if the value of name is not empty, then the `length:10` rule will be applied
 |13	  |											   |**`gt`**    |
 |14	  |											   |**`gte`**   |
 |15	  |											   |**`lt`**    |
-|16	  |											   |**`lte`**  |
-|17	  |											   |**`format`** |
-|18	  |											   |**`regex`** |
-|19	  |											   |**`same`**  |
+|16	  |											   |**`lte`**    |
+|17	  |											   |**`equal`**  |
+|18	  |											   |**`format`** |
+|19	  |											   |**`regex`** |
+|20	  |											   |**`same`**  |
 
 
 #### Required
@@ -410,6 +411,13 @@ This rule validates that the value of the field is less than or equal to a given
 ```java
 	@Rules(field = "age", rules = "required|lte:18")
 	TextField age;
+```
+#### equal:*value*
+This rule checks whether the value of a field is equal to a given value. It can be used with both numeric, char, boolean, and string values.  [:arrow_up:](#all-available-rules)
+
+```java
+	@Rules(field = "accept conditions", rules = "required|equal:true")
+	CheckBox acceptConditions;
 ```
 #### format:*date_format*
 The rule is used to ensure that a given field matches a specific date format.   
